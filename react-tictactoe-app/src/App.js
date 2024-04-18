@@ -5,6 +5,7 @@ import React, {useState} from "react";
 function App() {
     const [history, setHistory] = useState([{squares: Array(9).fill(null)}])
     const [isX, setIsX] = useState(true);
+    const [stepNumber, setStepNumber] = useState(0);
     const calculateWinner = (squares) => {
         const LINES = [
             [0, 1, 2],
@@ -25,7 +26,7 @@ function App() {
         return null;
     };
 
-    let current = history[history.length - 1];
+    let current = history[stepNumber];
     const winner = calculateWinner(current.squares);
 
     let status;
@@ -37,15 +38,37 @@ function App() {
     }
 
     const handleClick = (i) => {
-        const newSquares = current.squares.slice();
+        const newHistory = history.slice(0, stepNumber + 1);
+        const newCurrent = newHistory[newHistory.length - 1];
+        const newSquares = newCurrent.squares.slice();
         if (calculateWinner(newSquares) || newSquares[i]) {
             return;
         }
         newSquares[i] = isX ? 'X' : 'O';
-        setHistory([...history, {squares: newSquares}]);
+        setHistory([...newHistory, {squares: newSquares}]);
 
         setIsX(prev => !prev);
+
+        setStepNumber(newHistory.length);
     };
+
+    const jumpTo = (step) => {
+        setStepNumber(step);
+        setIsX(step % 2 === 0);
+    };
+
+    const moves = history.map((step, move) => {
+        let text = move ?
+            `Go to ${move}` :
+            `Go to Start`;
+        return (
+            <li key={move}>
+                <button onClick={() => jumpTo(move)}>{text}</button>
+            </li>
+        );
+    });
+
+
 
     return (
         <div className="game">
@@ -57,6 +80,7 @@ function App() {
             </div>
             <div className="game-info">
                 <div className="status">{status}</div>
+                <ol>{moves}</ol>
             </div>
         </div>
     );
