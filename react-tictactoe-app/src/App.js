@@ -63,24 +63,23 @@ function App() {
             `Go to Start`;
         return (
             <li key={move}>
-                <button onClick={() => jumpTo(move)}>{text}</button>
+                <button className="move-button" onClick={() => jumpTo(move)}>{text}</button>
             </li>
         );
     });
-
 
 
     return (
         <div className="game">
             <div className="game-board">
                 <Board
-                    squares = {current.squares}
-                    onClick = {(i) => handleClick(i)}
+                    squares={current.squares}
+                    onClick={(i) => handleClick(i)}
                 />
             </div>
             <div className="game-info">
                 <div className="status">{status}</div>
-                <ol>{moves}</ol>
+                <ol style={{listStyle: 'none'}}>{moves}</ol>
             </div>
         </div>
     );
