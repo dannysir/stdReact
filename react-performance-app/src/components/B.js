@@ -1,16 +1,16 @@
 import React from "react";
 
-const Message = ({message}) => {
+const Message = React.memo(({message}) => {
     return <p>{message}</p>;
-};
-const ListItem = ({post}) =>{
+});
+const ListItem = React.memo(({post}) => {
     return (
         <li>
             <p>{post.title}</p>
         </li>
     )
-}
-const List = ({post}) => {
+});
+const List = React.memo(({post}) => {
     return (
         <ul>
             {post.map(v => (
@@ -18,7 +18,7 @@ const List = ({post}) => {
             ))}
         </ul>
     );
-};
+});
 const B = ({message, posts}) => {
     return (
         <div>
