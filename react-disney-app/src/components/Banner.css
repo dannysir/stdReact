@@ -80,3 +80,39 @@
     flex-direction: row;
 }
 
+.banner__button {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 0.4rem 1rem;
+    margin-right: 1rem;
+}
+
+.banner__button:hover {
+    color: #000;
+    background-color: rgba(170, 170, 170, 0.9);
+    transition: all 0.2s;
+}
+
+.play {
+    background-color: white;
+    color: black;
+}
+
+
+
+.element {
+    inset: 1em 2em 3em 0;
+    /* top right bottom left */
+    inset: 10% 5% -10%;
+    /* top left/right bottom */
+    inset: 0 10px;
+    /* top/bottom left/right */
+    inset: 20px;
+    /* all edges = 20px */
+}
