@@ -6,7 +6,6 @@
     background-clip: content-box;
     padding: 20px 0;
     box-sizing: border-box;
-    transform: 400ms all ease-in-out;
     cursor: pointer;
     width: 80px;
     z-index: 1000;
@@ -24,7 +23,6 @@
     background-clip: content-box;
     padding: 20px 0;
     box-sizing: border-box;
-    transform: 400ms all ease-in-out;
     cursor: pointer;
     width: 80px;
     z-index: 1000;

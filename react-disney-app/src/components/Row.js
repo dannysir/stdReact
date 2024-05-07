@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from "react";
 import axios from "../api/axios";
 import "./Row.css"
 import MovieModal from "./MovieModal";
-import {Navigation, Pagination, Scrollbar, A11y} from "swiper/modules";
+import {Navigation, Pagination, Scrollbar, A11y} from "swiper";
 import {Swiper, SwiperSlide} from "swiper/react";
 
 import "swiper/css";
@@ -12,49 +12,52 @@ import "swiper/css/scrollbar";
 import styled from "styled-components";
 
 
-const Row = ({title, id, fetchUrl}) => {
-    const [movies, setMovies] = useState([]);
+const Row = ({ title, id, fetchUrl }) => {
+    const [movies, setMovies] = useState([])
     const [modalOpen, setModalOpen] = useState(false);
-    const [movieSelected, setMovieSelection] = useState({});
+    const [movieSelected, setMovieSelection] = useState({})
 
-    const fetchMovieDate = useCallback(async () => {
+    const fetchMovieData = useCallback(async () => {
         const response = await axios.get(fetchUrl);
+        // console.log('response', response);
         setMovies(response.data.results);
     }, [fetchUrl])
 
     useEffect(() => {
-        fetchMovieDate();
-    }, [fetchUrl])
+        fetchMovieData();
+    }, [fetchMovieData])
 
     const handleClick = (movie) => {
         setModalOpen(true);
         setMovieSelection(movie);
-    };
+    }
 
     return (
         <Container>
             <h2>{title}</h2>
             <Swiper
+                // install Swiper modules
                 modules={[Navigation, Pagination, Scrollbar, A11y]}
-                loop={true}
-                navigation
-                pagination={{clickable: true}}
+                loop={true} //loop 기능을 사용할 것인지
+                navigation // arrow 버튼 사용 유무
+                pagination={{ clickable: true }} //페이지 버튼 보이게 할지
                 breakpoints={{
                     1378: {
-                        slidesPerView: 6,
+                        slidesPerView: 6, //한번에 보이는 슬라이드 개수
                         slidesPerGroup: 6,
                     },
                     998: {
-                        slidesPerView: 5,
+                        slidesPerView: 5, //한번에 보이는 슬라이드 개수
                         slidesPerGroup: 5,
-                    },625: {
-                        slidesPerView: 4,
+                    },
+                    625: {
+                        slidesPerView: 4, //한번에 보이는 슬라이드 개수
                         slidesPerGroup: 4,
-                    },0: {
-                        slidesPerView: 3,
+                    },
+                    0: {
+                        slidesPerView: 3, //한번에 보이는 슬라이드 개수
                         slidesPerGroup: 3,
                     },
-
                 }}
             >
                 <Content id={id}>
@@ -72,23 +75,23 @@ const Row = ({title, id, fetchUrl}) => {
                     ))}
                 </Content>
             </Swiper>
+
+
             {modalOpen &&
                 <MovieModal
                     {...movieSelected}
                     setModalOpen={setModalOpen}
                 />
-
             }
-
         </Container>
-    );
-};
+    )
+}
 
-export default Row;
+export default Row
 
 const Container = styled.div`
   padding: 0 0 26px;
-`
+`;
 
 const Content = styled.div``;
 
