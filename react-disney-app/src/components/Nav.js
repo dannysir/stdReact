@@ -5,7 +5,10 @@ import {getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOu
 
 const Nav = () => {
     const [show, setShow] = useState(false);
-    const [userData, setUserData] = useState({});
+    const initialUserData = localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : {};
+
+    const [userData, setUserData] = useState(initialUserData);
+
     const {pathname} = useLocation();
     const [searchValue, setSearchValue] = useState('');
     const navigate = useNavigate();
@@ -35,9 +38,8 @@ const Nav = () => {
     const handleAuth = () => {
         signInWithPopup(auth, provider)
             .then(result => {
-                console.log(result);
                 setUserData(result.user);
-                localStorage.setItem('userItem', JSON.stringify(result.user));
+                localStorage.setItem('userData', JSON.stringify(result.user));
             })
             .catch(error => {
                 console.log(error);
